@@ -1,0 +1,30 @@
+﻿<Window x:Class="WpfApp2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <DataGrid x:Name="dgv_data" Margin="360,137,38,80"/>
+        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="66,155,0,0" VerticalAlignment="Top" Height="31" Width="132"/>
+        <TextBox x:Name="txt_nombre" HorizontalAlignment="Left" Margin="66,186,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142"/>
+        <Label Content="Direccion:" HorizontalAlignment="Left" Margin="66,215,0,0" VerticalAlignment="Top" Height="31" Width="132"/>
+        <TextBox x:Name="txt_direccion" HorizontalAlignment="Left" Margin="66,246,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="142"/>
+        <Button x:Name="btn_insertar" Content="INSERTAR" HorizontalAlignment="Left" Margin="66,285,0,0" VerticalAlignment="Top" Height="31" Width="66" Click="btn_insertar_Click"/>
+        <Label Content="DATOS DE LA OFICINA" HorizontalAlignment="Left" Margin="78,93,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.517,-0.345"/>
+        <Label Content="id:" HorizontalAlignment="Left" Margin="66,124,0,0" VerticalAlignment="Top" Height="31" Width="33"/>
+        <TextBox x:Name="txt_id" HorizontalAlignment="Left" Margin="104,132,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="104"/>
+        <Button x:Name="btn_modificar" Content="MODIFICAR" HorizontalAlignment="Left" Margin="142,285,0,0" VerticalAlignment="Top" Height="31" Width="66" Click="btn_modificar_Click"/>
+        <Button x:Name="btn_eliminar" Content="ELIMINAR" HorizontalAlignment="Left" Margin="66,323,0,0" VerticalAlignment="Top" Height="31" Width="66" Click="btn_eliminar_Click" RenderTransformOrigin="0.076,0.421" />
+        <Button x:Name="btn_buscar" Content="BUSCAR" HorizontalAlignment="Left" Margin="143,323,0,0" VerticalAlignment="Top" Height="31" Width="66"  RenderTransformOrigin="0.076,0.421" Click="btn_buscar_Click" />
+        <Label x:Name="lbl_info" Content="Label" HorizontalAlignment="Left" Margin="374,367,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn_buscar1" Content="BUSCAR" HorizontalAlignment="Left" Margin="223,130,0,0" VerticalAlignment="Top" Click="btn_buscar1_Click"/>
+        <Label Content="INICIO" HorizontalAlignment="Left" Margin="313,58,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dtp_inicio" HorizontalAlignment="Left" Margin="374,60,0,0" VerticalAlignment="Top"/>
+        <Label Content="FIN" HorizontalAlignment="Left" Margin="538,58,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dtp_fin" HorizontalAlignment="Left" Margin="599,60,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn_fecha" Content="FILTRAR POR FECHA" HorizontalAlignment="Left" Margin="496,96,0,0" VerticalAlignment="Top" Click="btn_fecha_Click"/>
+    </Grid>
+</Window>
