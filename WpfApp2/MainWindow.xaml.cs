@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using System.Data;
 using MySql.Data.MySqlClient;
 using Mysqlx.Connection;
+using MySqlX.XDevAPI.Relational;
 
 namespace WpfApp2
 {
@@ -240,25 +241,79 @@ namespace WpfApp2
         }
 
         private void btn_fecha_Click(object sender, RoutedEventArgs e){
-            string query = @"SELECT id AS ID, nombre AS 'Oficina Sucursal',
-                            direccion AS Direccion FROM oficina
-                            WHERE estado=1 AND fechaRegistro BETWEEN '@date1' 
-								AND '@date2';";
+            string query = @"SELECT id AS 'ID', nombre AS 'Oficina',
+                       direccion AS 'Direccion', fechaRegistro AS 'Registrado'
+                FROM oficina
+                WHERE estado = 1 AND fechaRegistro BETWEEN @fechaInicio AND @fechaFin
+                ORDER BY id;";
+            //Datetime desde el año 1 y Timestamp es desde el 1970
+
             MySqlConnection connection = new MySqlConnection(connectionString);
             MySqlCommand comando = new MySqlCommand(query, connection);
 
-            comando.Parameters.AddWithValue("@date1",DateOnly.Parse(dtp_inicio.ToString()));
-            comando.Parameters.AddWithValue("@date2", DateTime.Parse(dtp_fin.ToString()));
+            //comando.Parameters.AddWithValue("@date1",DateOnly.Parse(dtp_inicio.ToString()));
+            //comando.Parameters.AddWithValue("@date2", DateTime.Parse(dtp_fin.ToString()));
 
-            try
-            {
+            comando.Parameters.AddWithValue("@fechaInicio", dtp_inicio.SelectedDate.Value);
+            comando.Parameters.AddWithValue("@fechaFin", dtp_fin.SelectedDate.Value);
+            //Captura la fecha del target
+
+            try{
                 connection.Open();
+
                 MySqlDataAdapter adapter = new MySqlDataAdapter(comando);
                 DataTable table=new DataTable();
                 adapter.Fill(table);
                 dgv_data.ItemsSource = null;
                 dgv_data.ItemsSource = table.DefaultView;
-                MessageBox.Show($"{DateTime.Parse(dtp_inicio.ToString())}");
+
+                lbl_info.Content = table.Rows.Count + " Registros encontrados :)";
+            }
+            catch (Exception ex){
+                MessageBox.Show(ex.Message);
+            }
+            finally{
+                connection.Close();
+            }
+        }
+
+        private void btn_mayor_Click(object sender, RoutedEventArgs e)
+        {
+            string query = @"SELECT id AS 'ID', nombre AS 'Oficina', 
+                            direccion AS 'Direccion' FROM oficina
+                            WHERE estado=1 ORDER BY 1;";
+
+            //string query = @"SELECT id, nombre, direccion 
+            //    FROM oficina
+            //    WHERE id = (SELECT MAX(id) FROM oficina);";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand comando = new MySqlCommand(query, connection);
+
+            //comando.Parameters.AddWithValue("@", );
+            //comando.Parameters.AddWithValue("@", );
+
+            try
+            {
+                connection.Open();
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(comando);
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+                dgv_data.ItemsSource = null;
+                dgv_data.ItemsSource = table.DefaultView;
+
+                int n = table.Rows.Count;
+                MessageBox.Show($"El mayor ID es {table.Rows[n - 1][0]}.\nNombre: " +
+                    $"{table.Rows[n - 1][1]} \nDireccion: {table.Rows[n - 1][2]}");
+
+                //if (table.Rows.Count > 0){
+                //    MessageBox.Show($"El mayor ID es {table.Rows[0]["id"]}.\nNombre: " +
+                //                    $"{table.Rows[0]["nombre"]} \nDireccion: {table.Rows[0]["direccion"]}");
+                //}
+                //else{
+                //    MessageBox.Show("No se encontró ningún registro.");
+                //}
             }
             catch (Exception ex)
             {
@@ -268,6 +323,38 @@ namespace WpfApp2
             {
                 connection.Close();
             }
+
+        }
+
+
+
+        void Plantilla() {
+            string query = @"SELECT id AS 'ID', nombre AS 'Oficina', 
+                            direccion AS 'Direccion' FROM oficina
+                            WHERE estado=1; ";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand comando = new MySqlCommand(query, connection);
+
+            try{
+                connection.Open();
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(comando);
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+                dgv_data.ItemsSource = null;
+                dgv_data.ItemsSource = table.DefaultView;
+                int n = table.Rows.Count;
+                MessageBox.Show($"El mayor ID es {table.Rows[n - 1][0]}");
+
+            }
+            catch (Exception ex){
+                MessageBox.Show(ex.Message);
+            }
+            finally{
+                connection.Close();
+            }
+
         }
     }
 }

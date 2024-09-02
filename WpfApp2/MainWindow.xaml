@@ -26,5 +26,6 @@
         <Label Content="FIN" HorizontalAlignment="Left" Margin="538,58,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="dtp_fin" HorizontalAlignment="Left" Margin="599,60,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btn_fecha" Content="FILTRAR POR FECHA" HorizontalAlignment="Left" Margin="496,96,0,0" VerticalAlignment="Top" Click="btn_fecha_Click"/>
+        <Button x:Name="btn_mayor" Content="MAYOR" HorizontalAlignment="Left" Margin="66,360,0,0" VerticalAlignment="Top" Height="31" Width="66"  RenderTransformOrigin="0.076,0.421" Click="btn_mayor_Click" />
     </Grid>
 </Window>
